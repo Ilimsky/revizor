@@ -84422,7 +84422,7 @@ s=q}while(true)switch(s){case 0:n.b=!0
 n.ac()
 q=3
 s=6
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).lc(),$async$lc)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).lc(),$async$lc)
 case 6:n.a=b
 o.push(5)
 s=4
@@ -84447,7 +84447,7 @@ l5(a,b,c,d,e,f,g,h){return this.ajg(a,b,c,d,e,f,g,h)},
 ajg(a,b,c,d,e,f,g,h){var s=0,r=B.L(t.H),q=this,p
 var $async$l5=B.M(function(i,j){if(i===1)return B.I(j,r)
 while(true)switch(s){case 0:s=2
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).l5(a,b,c,d,e,f,g,h),$async$l5)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).l5(a,b,c,d,e,f,g,h),$async$l5)
 case 2:p=j
 J.iq(q.a,p)
 q.ac()
@@ -84461,7 +84461,7 @@ n=J.aIs(o.a,new B.Zm(a))
 s=!J.c(n,-1)?6:7
 break
 case 6:s=8
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).B2(a,b,d,c,e,f,g,h,i),$async$B3)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).B2(a,b,d,c,e,f,g,h,i),$async$B3)
 case 8:m=a1
 J.rt(o.a,n,m)
 o.ac()
@@ -84484,7 +84484,7 @@ l7(a){return this.ajJ(a)},
 ajJ(a){var s=0,r=B.L(t.H),q=this
 var $async$l7=B.M(function(b,c){if(b===1)return B.I(c,r)
 while(true)switch(s){case 0:s=2
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).l7(a),$async$l7)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).l7(a),$async$l7)
 case 2:J.ayl(q.a,new B.Zl(a))
 q.ac()
 return B.J(null,r)}})
@@ -84500,7 +84500,7 @@ ld(){var s=0,r=B.L(t.H),q=this
 var $async$ld=B.M(function(a,b){if(a===1)return B.I(b,r)
 while(true)switch(s){case 0:q.ac()
 s=2
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).ld(),$async$ld)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).ld(),$async$ld)
 case 2:q.a=b
 q.ac()
 return B.J(null,r)}})
@@ -84510,7 +84510,7 @@ le(){var s=0,r=B.L(t.H),q=this
 var $async$le=B.M(function(a,b){if(a===1)return B.I(b,r)
 while(true)switch(s){case 0:q.ac()
 s=2
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).le(),$async$le)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).le(),$async$le)
 case 2:q.a=b
 q.ac()
 return B.J(null,r)}})
@@ -84520,7 +84520,7 @@ lf(){var s=0,r=B.L(t.H),q=this
 var $async$lf=B.M(function(a,b){if(a===1)return B.I(b,r)
 while(true)switch(s){case 0:q.ac()
 s=2
-return B.Q(new B.kn(B.ta(B.rB("http://localhost:8080/api"))).lf(),$async$lf)
+return B.Q(new B.kn(B.ta(B.rB("https://revizor-c443.onrender.com/api"))).lf(),$async$lf)
 case 2:q.a=b
 q.ac()
 return B.J(null,r)}})
