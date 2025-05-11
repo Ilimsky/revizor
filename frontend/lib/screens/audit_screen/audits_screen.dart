@@ -48,9 +48,6 @@ class _AuditsScreenState extends State<AuditsScreen> {
           .departments
           .firstWhere((d) => d.id == audit.departmentId,
               orElse: () => Department(id: 0, name: ''));
-      // final job = Provider.of<JobProvider>(context, listen: false)
-      //     .jobs
-      //     .firstWhere((j) => j.id == audit.jobId, orElse: () => Job(id: 0, name: ''));
       final employee = Provider.of<EmployeeProvider>(context, listen: false)
           .employees
           .firstWhere((e) => e.id == audit.employeeId,
@@ -206,6 +203,7 @@ class _AuditsScreenState extends State<AuditsScreen> {
 
     // Контроллеры для полей ввода
     final ticketController = TextEditingController(text: audit.ticket);
+    final descriptionController = TextEditingController(text: audit.description);
     final purposeController = TextEditingController(text: audit.purpose);
     final commentsController = TextEditingController(text: audit.comments);
 
@@ -244,6 +242,11 @@ class _AuditsScreenState extends State<AuditsScreen> {
                     TextField(
                       controller: ticketController,
                       decoration: InputDecoration(labelText: 'Залоговый билет'),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(labelText: 'Описание'),
                     ),
                     SizedBox(height: 10),
                     TextField(
@@ -314,6 +317,7 @@ class _AuditsScreenState extends State<AuditsScreen> {
                         audit.auditNumber,
                         selectedDepartment!.id,
                         ticket: ticketController.text,
+                        description: descriptionController.text,
                         purpose: purposeController.text,
                         employeeId: selectedEmployee!.id,
                         revizorId: selectedRevizor!.id,
@@ -417,21 +421,6 @@ class _AuditsScreenState extends State<AuditsScreen> {
                         dataRowMaxHeight: 40,
                         columnSpacing: 1,
                         columns: [
-                          // DataColumn(
-                          //   label: Container(
-                          //     width: 40,
-                          //     child: Text(
-                          //       'Номер отчета',
-                          //       style: TextStyle(fontSize: 10),
-                          //       softWrap: true,
-                          //       overflow: TextOverflow.visible,
-                          //       maxLines: 2,
-                          //       textAlign: TextAlign.center,
-                          //     ),
-                          //   ),
-                          //   onSort: (i, asc) => _sort<num>(
-                          //       (r) => r.auditNumber, i, asc, auditProvider),
-                          // ),
                           DataColumn(
                             label: Container(
                               width: 70,
@@ -512,6 +501,21 @@ class _AuditsScreenState extends State<AuditsScreen> {
                             ),
                             onSort: (i, asc) => _sort<String>(
                                 (r) => r.ticket, i, asc, auditProvider),
+                          ),
+                          DataColumn(
+                            label: Container(
+                              width: 200,
+                              child: Text(
+                                'Описание',
+                                style: TextStyle(fontSize: 10),
+                                softWrap: true,
+                                overflow: TextOverflow.visible,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            onSort: (i, asc) => _sort<String>(
+                                    (r) => r.description, i, asc, auditProvider),
                           ),
                           DataColumn(
                             label: Container(
@@ -627,10 +631,6 @@ class _AuditsScreenState extends State<AuditsScreen> {
                             (d) => d.id == audit.departmentId,
                             orElse: () => Department(id: 0, name: 'Неизвестно'),
                           );
-                          // final job = jobProvider.jobs.firstWhere(
-                          //       (j) => j.id == audit.jobId,
-                          //   orElse: () => Job(id: 0, name: 'Неизвестно'),
-                          // );
                           final employee =
                               employeeProvider.employees.firstWhere(
                             (e) => e.id == audit.employeeId,
@@ -642,17 +642,6 @@ class _AuditsScreenState extends State<AuditsScreen> {
                           );
 
                           return DataRow(cells: [
-                            // DataCell(Container(
-                            //   width: 40,
-                            //   child: Text(
-                            //     '${audit.auditNumber}/${department.name}',
-                            //     style: TextStyle(fontSize: 12),
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 1,
-                            //     textAlign: TextAlign.center,
-                            //     softWrap: true,
-                            //   ),
-                            // )),
                             DataCell(Container(
                               width: 80,
                               child: Text(
@@ -664,46 +653,21 @@ class _AuditsScreenState extends State<AuditsScreen> {
                                 softWrap: true,
                               ),
                             )),
-                            // DataCell(Container(
-                            //   width: 90,
-                            //   child: Text(
-                            //     audit.amountIssued,
-                            //     style: TextStyle(fontSize: 12),
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 1,
-                            //     textAlign: TextAlign.center,
-                            //     softWrap: true,
-                            //   ),
-                            // )),
-                            // DataCell(Container(
-                            //   width: 80,
-                            //   child: Text(
-                            //     audit.dateApproved != null
-                            //         ? _dateFormat.format(audit.dateApproved!)
-                            //         : '',
-                            //     style: TextStyle(fontSize: 12),
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 1,
-                            //     textAlign: TextAlign.center,
-                            //     softWrap: true,
-                            //   ),
-                            // )),
-                            // DataCell(Container(
-                            //   width: 100,
-                            //   child: Text(
-                            //     // job.name,
-                            //     style: TextStyle(fontSize: 12),
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 2,
-                            //     textAlign: TextAlign.center,
-                            //     softWrap: true,
-                            //   ),
-                            // )),
-
                             DataCell(Container(
                               width: 200,
                               child: Text(
                                 '${department.name}/${audit.ticket}', // Добавляем номер филиала перед билетом
+                                style: TextStyle(fontSize: 12),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                              ),
+                            )),
+                            DataCell(Container(
+                              width: 200,
+                              child: Text(
+                                audit.description,
                                 style: TextStyle(fontSize: 12),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
@@ -733,17 +697,6 @@ class _AuditsScreenState extends State<AuditsScreen> {
                                 softWrap: true,
                               ),
                             )),
-                            // DataCell(Container(
-                            //   width: 90,
-                            //   child: Text(
-                            //     audit.recognizedAmount,
-                            //     style: TextStyle(fontSize: 12),
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 1,
-                            //     textAlign: TextAlign.center,
-                            //     softWrap: true,
-                            //   ),
-                            // )),
                             DataCell(Container(
                               width: 60,
                               child: Text(
