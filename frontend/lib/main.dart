@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/BindingProvider.dart';
 import 'package:frontend/providers/DepartmentProvider.dart';
 import 'package:frontend/providers/EmployeeProvider.dart';
 import 'package:frontend/providers/RevizorProvider.dart';
-import 'package:frontend/screens/CreateAuditScreen.dart';
-import 'package:frontend/screens/report_screen/audits_screen.dart';
+import 'package:frontend/screens/create_audit_screen/create_audit_screen.dart';
+import 'package:frontend/screens/audit_screen/audits_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/ReferenceScreen.dart';
+import 'screens/reference_screen/reference_screen.dart';
 import 'providers/AuditProvider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => BindingProvider()),
         ChangeNotifierProvider(create: (_) => DepartmentProvider()),
         ChangeNotifierProvider(create: (_) => AuditProvider()),
         ChangeNotifierProvider(create: (_) => EmployeeProvider()),
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     AuditsScreen(), // Список отчетов
     CreateAuditScreen(), // Создание отчетов
-    // ReferenceScreen(), // Справочник
+    ReferenceScreen(), // Справочник
   ];
 
   @override
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Список отчетов'),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Создание отчетов'),
-          // BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Справочник'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Справочник'),
         ],
       ),
     );

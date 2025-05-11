@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 
+import '../models/Binding.dart';
 import '../models/Department.dart';
 import '../models/Employee.dart';
 import '../models/Audit.dart';
 import '../models/Revizor.dart';
 
 class ApiService {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://localhost:8080/api'));
-  // final Dio _dio = Dio(BaseOptions(baseUrl: 'https://revizor-c443.onrender.com/api'));
+  // final Dio _dio = Dio(BaseOptions(baseUrl: 'http://localhost:8080/api'));
+  final Dio _dio = Dio(BaseOptions(baseUrl: 'https://revizor-c443.onrender.com/api'));
 
   Future<List<Department>> fetchDepartments() async {
     try {
@@ -65,7 +66,6 @@ class ApiService {
       }
     } catch (e) {
       if (e is DioException) {
-        // Handle Dio-specific errors
         print('Dio error: ${e.message}');
       }
       rethrow;
@@ -85,15 +85,12 @@ class ApiService {
 
   Future<Audit> createAudit({
     required int departmentId,
-    // required int jobId,
     required int employeeId,
     required int revizorId,
     required String dateReceived,
     required String ticket,
-    // required String amountIssued,
-    // required String dateApproved,
+    required String description,
     required String purpose,
-    // required String recognizedAmount,
     required String comments,
   }) async {
     try {
@@ -101,15 +98,12 @@ class ApiService {
         '/audits',
         data: {
           'departmentId': departmentId,
-          // 'jobId': jobId,
           'employeeId': employeeId,
           'revizorId': revizorId,
           'dateReceived': dateReceived,
           'ticket': ticket,
-          // 'amountIssued': amountIssued,
-          // 'dateApproved': dateApproved,
+          'description': description,
           'purpose': purpose,
-          // 'recognizedAmount': recognizedAmount,
           'comments': comments,
         },
       );
@@ -124,6 +118,7 @@ class ApiService {
         required int auditNumber,
         required int departmentId,
         required String ticket,
+        required String description,
         required String purpose,
         required int employeeId,
         required int revizorId,
@@ -134,6 +129,7 @@ class ApiService {
         'auditNumber': auditNumber,
         'departmentId': departmentId,
         'ticket': ticket,
+        'description': description,
         'purpose': purpose,
         'employeeId': employeeId,
         'revizorId': revizorId,
@@ -224,6 +220,66 @@ class ApiService {
   Future<void> deleteRevizor(int id) async {
     try {
       await _dio.delete('/revizors/$id');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Binding>> fetchBindings() async {
+    try {
+      final response = await _dio.get('/employee-departments');
+      return (response.data as List)
+          .map((json) => Binding.fromJson(json))
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Binding> createBinding({
+    required int employeeId,
+    required int departmentId,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/employee-departments',
+        data: {
+          'employee': {'id': employeeId},
+          'department': {'id': departmentId},
+        },
+      );
+      print('[DEBUG] createBinding response: ${response.data}');
+      return Binding.fromJson(response.data);
+    } catch (e) {
+      print('[ERROR] Failed to create binding: $e');
+      rethrow;
+    }
+  }
+
+  Future<Binding> updateBinding(
+      int id, {
+        required int employeeId,
+        required int departmentId,
+      }) async {
+    try {
+      final response = await _dio.put(
+        '/employee-departments/$id',
+        data: {
+          'employee': {'id': employeeId},
+          'department': {'id': departmentId},
+        },
+      );
+      print('[DEBUG] updateBinding response: ${response.data}');
+      return Binding.fromJson(response.data);
+    } catch (e) {
+      print('[ERROR] Failed to update binding: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> deleteBinding(int id) async {
+    try {
+      await _dio.delete('/employee-departments/$id');
     } catch (e) {
       rethrow;
     }

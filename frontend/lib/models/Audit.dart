@@ -6,6 +6,7 @@ class Audit {
   final int revizorId;
   final DateTime dateReceived;
   final String ticket;
+  final String description;
   final String purpose;
   final String comments;
 
@@ -18,6 +19,7 @@ class Audit {
     required this.revizorId,
     required this.dateReceived,
     required this.ticket,
+    required this.description,
     required this.purpose,
     required this.comments,
   });
@@ -31,6 +33,7 @@ class Audit {
       revizorId: json['revizorId'] as int? ?? 0,
       dateReceived: DateTime.parse(json['dateReceived'] as String? ?? '1970-01-01'),
       ticket: json['ticket'] as String? ?? '',
+      description: json['description'] as String? ?? '',
       purpose: json['purpose'] as String? ?? '',
       comments: json['comments'] as String? ?? '',
     );

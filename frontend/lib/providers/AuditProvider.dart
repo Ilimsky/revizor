@@ -35,36 +35,24 @@ class AuditProvider extends ChangeNotifier {
     }
   }
 
-  // Future<void> createAudit(int departmentId, int jobId, int employeeId, int accountId) async {
-  //   final newAudit = await ApiService().createAudit(departmentId, jobId, employeeId, accountId);
-  //   _audits.add(newAudit);
-  //   notifyListeners();
-  // }
-
   Future<void> createAudit({
     required int departmentId,
-    // required int jobId,
     required int employeeId,
     required int revizorId,
     required String dateReceived,
     required String ticket,
-    // required String amountIssued,
-    // required String dateApproved,
+    required String description,
     required String purpose,
-    // required String recognizedAmount,
     required String comments,
   }) async {
     final newAudit = await ApiService().createAudit(
       departmentId: departmentId,
-      // jobId: jobId,
       employeeId: employeeId,
       revizorId: revizorId,
       dateReceived: dateReceived,
       ticket: ticket,
-      // amountIssued: amountIssued,
-      // dateApproved: dateApproved,
+      description: description,
       purpose: purpose,
-      // recognizedAmount: recognizedAmount,
       comments: comments,
     );
     _audits.add(newAudit);
@@ -76,6 +64,7 @@ class AuditProvider extends ChangeNotifier {
       int auditNumber,
       int departmentId, {
         required String ticket,
+        required String description,
         required String purpose,
         required int employeeId,
         required int revizorId,
@@ -90,6 +79,7 @@ class AuditProvider extends ChangeNotifier {
           auditNumber: auditNumber,
           departmentId: departmentId,
           ticket: ticket,
+          description: description,
           purpose: purpose,
           employeeId: employeeId,
           revizorId: revizorId,
